@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KDP Coloring Book Prompt Generator</title>
+    <title>KDP Spark Prompt Generator</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,11 +12,11 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #000000; /* Pure Black */
+            background-color: #000000; /* Pure Black Theme */
             color: #f8fafc;
         }
 
-        /* Glassmorphism effects */
+        /* Glassmorphism effects adjusted for pure black */
         .glass-panel {
             background: #0a0a0a;
             backdrop-filter: blur(12px);
@@ -45,15 +45,18 @@
             from {
                 opacity: 0;
                 transform: translateY(20px);
+                max-height: 0;
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
+                max-height: 1000px; /* Arbitrary large height to allow slide down */
             }
         }
 
         .animate-reveal {
-            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            overflow: hidden;
         }
         
         .input-transition {
@@ -66,16 +69,16 @@
     <main class="w-full max-w-4xl flex-grow flex flex-col justify-center items-center my-8">
         
         <div class="glass-panel w-full rounded-3xl shadow-2xl p-6 sm:p-10 relative overflow-hidden">
-            <!-- Decorative background glows -->
+            <!-- Decorative background glows (Subtle) -->
             <div class="absolute top-0 left-0 w-64 h-64 bg-zinc-800 rounded-full mix-blend-screen filter blur-3xl opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
             <div class="absolute bottom-0 right-0 w-64 h-64 bg-zinc-800 rounded-full mix-blend-screen filter blur-3xl opacity-10 translate-x-1/2 translate-y-1/2"></div>
 
             <header class="mb-10 text-center relative z-10">
                 <h1 class="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500 mb-3 tracking-tight">
-                    KDP Prompt Generator
+                    Spark KDP Prompt Generator
                 </h1>
                 <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto">
-                    Configure your book details below to generate a highly optimized AI prompt for creating a complete, KDP-ready coloring book interior.
+                    Configure your book details below to generate a comprehensive prompt for the AI agent 'Spark' to create your entire KDP coloring book package.
                 </p>
             </header>
 
@@ -104,11 +107,10 @@
                     <div class="relative">
                         <select id="designStyle" class="appearance-none w-full bg-black border border-zinc-800 rounded-xl p-3.5 text-white input-transition focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 shadow-inner cursor-pointer">
                             <option value="Bold and Easy">Bold and Easy</option>
-                            <option value="Cute Kawaii">Cute Kawaii</option>
-                            <option value="Detailed Mandala">Detailed Mandala</option>
-                            <option value="Minimalist Line Art">Minimalist Line Art</option>
-                            <option value="Realistic Portraits">Realistic Portraits</option>
-                            <option value="Geometric Patterns">Geometric Patterns</option>
+                            <option value="Mandala">Mandala</option>
+                            <option value="Kawaii">Kawaii</option>
+                            <option value="Minimalist">Minimalist</option>
+                            <option value="Cute Animals">Cute Animals</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-zinc-500">
                             <i class="fas fa-chevron-down text-sm"></i>
@@ -122,7 +124,6 @@
                         <select id="bookSize" class="appearance-none w-full bg-black border border-zinc-800 rounded-xl p-3.5 text-white input-transition focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 shadow-inner cursor-pointer">
                             <option value="8.5 x 11 inches">8.5" x 11"</option>
                             <option value="8.5 x 8.5 inches">8.5" x 8.5"</option>
-                            <option value="6 x 9 inches">6" x 9"</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-zinc-500">
                             <i class="fas fa-chevron-down text-sm"></i>
@@ -131,15 +132,15 @@
                 </div>
 
                 <div class="flex flex-col">
-                    <label for="numPages" class="mb-2 text-sm font-medium text-zinc-300">Number of Coloring Pages</label>
-                    <input type="number" id="numPages" value="25" min="1" max="100" required
+                    <label for="numIllustrations" class="mb-2 text-sm font-medium text-zinc-300">Number of Illustrations</label>
+                    <input type="number" id="numIllustrations" value="25" min="1" max="100" required
                         class="bg-black border border-zinc-800 rounded-xl p-3.5 text-white input-transition focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 shadow-inner">
                 </div>
 
                 <div class="md:col-span-2 mt-4 flex justify-center">
-                    <button type="submit" class="group relative px-8 py-4 bg-zinc-900 border border-zinc-800 rounded-xl font-semibold text-white tracking-wide hover:border-zinc-600 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden w-full md:w-auto min-w-[250px]">
+                    <button type="submit" class="group relative px-8 py-4 bg-zinc-900 border border-zinc-800 rounded-xl font-semibold text-white tracking-wide hover:border-zinc-600 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden w-full md:w-auto min-w-[250px] shadow-lg">
                         <span class="relative z-10 flex items-center justify-center gap-2">
-                            <i class="fas fa-wand-magic-sparkles text-zinc-400"></i> Generate Prompt
+                            <i class="fas fa-bolt text-yellow-500/80"></i> Generate Spark Prompt
                         </span>
                         <div class="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
                     </button>
@@ -149,9 +150,9 @@
             <div id="resultContainer" class="hidden mt-10 pt-8 border-t border-zinc-800/80 relative z-10">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="text-lg font-semibold text-zinc-200 flex items-center gap-2">
-                        <i class="fas fa-robot text-zinc-500"></i> AI Agent Prompt
+                        <i class="fas fa-terminal text-zinc-500"></i> AI Agent (Spark) Prompt
                     </h3>
-                    <button onclick="copyPrompt()" id="copyBtn" class="flex items-center gap-2 text-sm font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white py-2 px-4 rounded-lg transition-all border border-zinc-800 hover:border-zinc-600">
+                    <button onclick="copyPrompt()" id="copyBtn" class="flex items-center gap-2 text-sm font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white py-2 px-4 rounded-lg transition-all border border-zinc-800 hover:border-zinc-600 shadow-sm cursor-pointer">
                         <i id="copyIcon" class="far fa-copy"></i>
                         <span id="copyText">Copy</span>
                     </button>
@@ -159,9 +160,8 @@
                 
                 <div class="relative group">
                     <textarea id="promptOutput" readonly
-                        class="w-full h-80 bg-black border border-zinc-800 rounded-xl p-5 text-zinc-300 font-mono text-sm focus:outline-none focus:border-zinc-600 transition-colors leading-relaxed resize-y"></textarea>
+                        class="w-full h-[450px] bg-black border border-zinc-800 rounded-xl p-5 text-zinc-300 font-mono text-sm focus:outline-none focus:border-zinc-600 transition-colors leading-relaxed resize-y"></textarea>
                     
-                    <!-- Subtle overlay indicating read-only status -->
                     <div class="absolute top-4 right-4 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
                         <span class="bg-zinc-900/80 text-zinc-400 text-xs px-2 py-1 rounded backdrop-blur-sm border border-zinc-800">Read Only</span>
                     </div>
@@ -170,15 +170,15 @@
         </div>
     </main>
 
-    <footer class="w-full text-center py-6 mt-auto">
+    <footer class="w-full text-center py-6 mt-auto border-t border-zinc-900/50">
         <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
-            <span class="text-zinc-500 text-sm font-medium">
+            <span class="text-zinc-500 text-sm font-medium tracking-wide">
                 © 2026 Khalid Fer. All rights reserved.
             </span>
             <div class="flex items-center gap-6">
                 <a href="https://www.youtube.com/c/KhalidFer/" target="_blank" rel="noopener noreferrer" 
                    class="text-zinc-500 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium">
-                    <i class="fab fa-youtube text-lg"></i> YouTube Channel
+                    <i class="fab fa-youtube text-lg text-red-900/50 hover:text-red-600 transition-colors"></i> YouTube Channel
                 </a>
                 <a href="mailto:dev.khalidfer@gmail.com" 
                    class="text-zinc-500 hover:text-white transition-colors flex items-center gap-2 text-sm font-medium">
@@ -190,60 +190,76 @@
 
     <script>
         function generatePrompt() {
-            // Fetch values
+            // Retrieve values from the form inputs
             const title = document.getElementById('bookTitle').value.trim();
             const subtitle = document.getElementById('bookSubtitle').value.trim();
             const author = document.getElementById('authorName').value.trim();
             const style = document.getElementById('designStyle').value;
             const size = document.getElementById('bookSize').value;
-            const pages = document.getElementById('numPages').value;
+            const illustrations = document.getElementById('numIllustrations').value;
 
-            // Format subtitle string if it exists
+            // Conditionally format subtitle strings
             const subtitleText = subtitle ? `\n- Subtitle: ${subtitle}` : '';
-            const copyrightSubtitle = subtitle ? `, Subtitle: '${subtitle}',` : '';
 
-            // Construct the Prompt
-            const prompt = `Act as an expert Amazon KDP coloring book creator. I need you to generate a complete blueprint and detailed image generation prompts for a coloring book with the following specifications:
+            // Construct the comprehensive prompt for Spark
+            const prompt = `Hello Spark, act as an expert Amazon KDP coloring book creator and technical generator. I need you to generate a complete, publication-ready coloring book package based on the following specifications:
 
 - Book Title: ${title}${subtitleText}
 - Author Name: ${author}
 - Design Style: ${style}
-- Size: ${size} (with bleed)
-- Total Coloring Pages: ${pages}
+- Size: ${size} (with standard KDP bleed)
+- Total Illustrations: ${illustrations}
 
-The interior must be perfectly formatted for Amazon KDP with the following strict page structure to prevent bleed-through:
-- Page 1: A decorative 'This book belongs to...' page layout.
+Please generate and output the following 4 distinct items in their respective formats:
+
+1. KDP Listing Assets (Text File)
+Generate a complete, SEO-optimized text file containing:
+- Main Title
+- Subtitle
+- An engaging HTML-formatted description ready to paste into KDP.
+- Exactly 7 highly relevant, long-tail keyword phrases for backend search terms.
+
+2. Cover Artwork (Image Files)
+Generate two separate high-resolution image files:
+- Front Cover: Must include the title and visually represent the '${style}' style with a colored example.
+- Back Cover: A complementing design, leaving space for the KDP barcode.
+
+3. Ready-to-Publish Interior (PDF File)
+Generate and compile a complete interior PDF formatted exactly to ${size}. You MUST strictly follow this exact pagination structure to prevent bleed-through for colored markers:
+- Page 1: A decorative "This book belongs to..." page.
 - Page 2: Blank page.
-- Page 3: Copyright page containing standard KDP copyright text, explicitly including the Title: '${title}'${copyrightSubtitle} and Author: '${author}'.
+- Page 3: Copyright page including the Title: "${title}" and Author: "${author}".
 - Page 4: Blank page.
-- Page 5: 'Color Test Page' for testing markers and crayons.
+- Page 5: "Color Test Page" (specifically designed for testing markers/crayons).
 - Page 6: Blank page.
-- Page 7: Coloring Page 1.
+- Page 7: Illustration 1 (strictly in the '${style}' style, black and white line art).
 - Page 8: Blank page.
-- Page 9: Coloring Page 2.
+- Page 9: Illustration 2.
 - Page 10: Blank page.
-... Continue this exact alternating pattern (one illustration page followed by one blank page) until all ${pages} coloring pages are accounted for.
+...Continue this exact alternating pattern (one illustration page followed by one blank page) until all ${illustrations} illustrations are completely accounted for.
 
-Please provide the following output:
-1. Introduction Pages: Provide the exact layout and text content required for Pages 1, 3, and 5.
-2. Image Prompts: Generate ${pages} detailed Midjourney/DALL-E image generation prompts for the actual coloring pages. 
-   - EVERY prompt MUST specify that it is a black and white line art coloring page.
-   - EVERY prompt MUST strictly adhere to the '${style}' style to ensure the book is perfectly cohesive.
-   - Make the subjects engaging and varied while sticking to the main theme implied by the title.`;
+4. Individual Illustrations (PNG Archive/Folder)
+Generate and provide a downloadable archive or folder containing all ${illustrations} individual black-and-white coloring pages generated for the interior. These must be in high-quality PNG format.
 
-            // Insert prompt into textarea
+Please ensure all outputs strictly adhere to these instructions.`;
+
+            // Display the prompt in the textarea
             const outputArea = document.getElementById('promptOutput');
             outputArea.value = prompt;
 
-            // Reveal the result container with animation
+            // Animate and reveal the result container
             const container = document.getElementById('resultContainer');
             if (container.classList.contains('hidden')) {
                 container.classList.remove('hidden');
-                // Force reflow
+                
+                // Remove animation class if it exists to reset it
+                container.classList.remove('animate-reveal');
+                // Trigger reflow to restart animation
                 void container.offsetWidth; 
+                
                 container.classList.add('animate-reveal');
                 
-                // Scroll to results smoothly
+                // Scroll smoothly to the results area
                 setTimeout(() => {
                     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 100);
@@ -258,31 +274,33 @@ Please provide the following output:
 
             if (!outputArea.value) return;
 
-            // Select and copy
+            // Select text for copying
             outputArea.select();
             outputArea.setSelectionRange(0, 99999); // Mobile compatibility
 
             try {
+                // Try modern Clipboard API first
                 navigator.clipboard.writeText(outputArea.value).then(() => {
-                    successState();
+                    triggerSuccessState();
                 }).catch(() => {
+                    // Fallback to execCommand
                     document.execCommand('copy');
-                    successState();
+                    triggerSuccessState();
                 });
             } catch (err) {
+                // Ultimate fallback
                 document.execCommand('copy');
-                successState();
+                triggerSuccessState();
             }
 
-            // Function to handle the UI state change upon successful copy
-            function successState() {
-                // Change UI to success state
+            function triggerSuccessState() {
+                // Update button UI to success state
                 copyIcon.className = 'fas fa-check text-green-500';
                 copyText.textContent = 'Copied!';
                 copyBtn.classList.remove('bg-zinc-900', 'hover:bg-zinc-800', 'border-zinc-800');
                 copyBtn.classList.add('bg-green-950/30', 'border-green-900/50', 'text-green-400');
 
-                // Revert after 2 seconds
+                // Revert button UI after 2 seconds
                 setTimeout(() => {
                     copyIcon.className = 'far fa-copy';
                     copyText.textContent = 'Copy';
@@ -290,7 +308,7 @@ Please provide the following output:
                     copyBtn.classList.remove('bg-green-950/30', 'border-green-900/50', 'text-green-400');
                 }, 2000);
                 
-                // Clear selection
+                // Clear the text selection
                 window.getSelection().removeAllRanges();
             }
         }
